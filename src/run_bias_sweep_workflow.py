@@ -85,7 +85,9 @@ def discover_runs(
     input_dir: Path, run_start: int, run_end: int, allow_missing: bool
 ) -> list[tuple[str, Path]]:
     if run_start > run_end:
-        raise SystemExit("--run-start must be <= --run-end.")
+        raise SystemExit(
+            f"--run-start ({run_start}) must be <= --run-end ({run_end})."
+        )
 
     discovered: list[tuple[str, Path]] = []
     missing: list[str] = []
@@ -113,7 +115,7 @@ def load_run_records(
     for label, csv_path in run_csvs:
         records = load_records(csv_path)
         if not records:
-            raise SystemExit(f"No rows found in {csv_path}")
+            raise SystemExit(f"No records found in {csv_path}")
         records_by_run[label] = records
     return records_by_run
 
