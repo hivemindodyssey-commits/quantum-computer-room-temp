@@ -1,47 +1,45 @@
-# Quantum Computer Room Temperature
+# quantum-computer-room-temp
 
-A research-oriented repository investigating how room-temperature environmental conditions influence quantum coherence and spin-exciton behavior.
+Room-temperature quantum-computing research scaffold focused on spin-exciton proxy metrics, repeatable protocol design, and lightweight analysis utilities.
 
-## Abstract
-Quantum systems are highly sensitive to environmental noise and thermal fluctuation. This project documents hypotheses, experimental structure, and analysis plans for evaluating coherence-related effects under controlled room-temperature conditions.
+## Repository Layout
+- `docs/` — protocol and specification docs
+- `data/` — raw/processed/sample datasets
+- `src/` — schema + analysis utilities
+- `notebooks/` — exploratory analysis workspace
 
-## Research Objectives
-1. Characterize stability constraints for quantum coherence at room temperature.
-2. Examine spin-exciton behavior across controlled thermal and ambient variations.
-3. Identify environmental parameters most correlated with decoherence signals.
+## Quickstart
+1. Create and activate a Python virtual environment.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the analysis entrypoint on the sample dataset:
+   ```bash
+   python src/run_analysis.py
+   ```
+4. Optionally run against another CSV:
+   ```bash
+   python src/run_analysis.py path/to/your_measurements.csv
+   ```
 
-## Scope
-This repository is focused on:
-- Concept development and theoretical framing
-- Experiment design templates
-- Data schema planning
-- Early analysis workflow definitions
+## Included Starter Assets
+- `docs/experiment-protocol.md`
+- `docs/spec-v0.2.md`
+- `data/README.md`
+- `data/samples/sample_measurements.csv`
+- `src/metrics_schema.py`
+- `src/basic_analysis.py`
+- `src/run_analysis.py`
+- `notebooks/README.md`
 
-## Proposed Methodology
-- Define baseline environmental ranges (temperature, humidity, vibration, EM noise).
-- Run repeated observation cycles under controlled variation.
-- Record coherence-relevant indicators and spin-exciton response proxies.
-- Compare outcomes against baseline and perturbed conditions.
-
-## Data and Measurement Plan
-Planned tracked fields include:
-- Timestamp
-- Ambient temperature (°C)
-- Relative humidity (%)
-- Vibration index
-- Electromagnetic noise estimate
-- Coherence proxy metric(s)
-- Spin-exciton response metric(s)
-- Notes / anomaly markers
-
-## Current Status
-Early-stage research documentation and framework construction.
-
-## Roadmap
-- Finalize experimental protocol (v0.1)
-- Add structured data templates
-- Add initial analysis notebooks/scripts
-- Document limitations, assumptions, and reproducibility notes
+## Reproducibility Checklist
+- Keep hardware configuration fixed per run.
+- Log software and firmware versions.
+- Use consistent sampling intervals.
+- Record calibration and manual interventions.
+- Preserve raw data prior to transformation.
+- Store processing notes alongside outputs.
 
 ## Disclaimer
-This repository is for exploratory research and documentation. Claims, models, and conclusions remain preliminary until validated by repeatable experiments and peer review.
+This repository is a research scaffold and does not claim fault-tolerant quantum performance.
