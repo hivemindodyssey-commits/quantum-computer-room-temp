@@ -13,7 +13,7 @@ import numpy as np
 
 from basic_analysis import load_records
 from metrics_schema import MeasurementRecord
-from plot_phase_diagram import stability_color_map
+from plot_phase_diagram import _resolve_x_value, stability_color_map
 from stability import STABILITY_CLASSES, classify_cycle
 
 
@@ -120,14 +120,6 @@ def load_run_records(
     return records_by_run
 
 
-def _resolve_x(record: MeasurementRecord, x_field: str) -> float:
-    if x_field != "cycle_index":
-        value = getattr(record, x_field, None)
-        if value is not None:
-            return float(value)
-    return float(record.cycle_index)
-
-
 def _effective_x_field(records: list[MeasurementRecord], requested_x_field: str) -> str:
     if requested_x_field == "cycle_index":
         return requested_x_field
@@ -208,7 +200,7 @@ def build_bias_sweep_atlas(
         points_by_class: dict[str, list[tuple[float, float]]] = {}
         for record in records:
             points_by_class.setdefault(classify_cycle(record), []).append(
-                (_resolve_x(record, x_field), record.cm_t)
+                (_resolve_x_value(record, x_field), record.cm_t)
             )
 
         for stability_class in STABILITY_CLASSES:
