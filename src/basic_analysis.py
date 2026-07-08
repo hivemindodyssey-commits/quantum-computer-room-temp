@@ -33,7 +33,10 @@ def parse_bool(value: str) -> bool:
         return True
     if normalized in {"false", "0", "no", "n"}:
         return False
-    raise ValueError(f"Invalid boolean value: {value!r}")
+    raise ValueError(
+        f"Invalid boolean value: {value!r}. Expected one of: true, false, 1, 0, "
+        "yes, no, y, n (case-insensitive)"
+    )
 
 
 def _parse_optional_bool(value: str) -> bool | None:

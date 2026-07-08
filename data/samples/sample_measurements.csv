@@ -1,6 +1,6 @@
 timestamp,cycle_index,ambient_temperature_c,relative_humidity_pct,vibration_index,em_noise_estimate,coherence_proxy,spin_exciton_proxy,t_pi_ns,t_bse_ns,t_ff_ns,t_uesa_ns,t2_star_ns,handoff_checksum,prior_handoff_checksum,reset_confirmed,state_continuity_flag,anomaly_note
 2026-07-08T20:00:00Z,0,24.8,45.2,0.031,0.120,0.918,0.842,1.00,100.0,40.0,500.0,150.0,payload-000,,true,,stable baseline cycle
-2026-07-08T20:00:10Z,1,24.9,45.1,0.029,0.118,0.921,0.847,1.00,100.0,40.0,500.0,120.0,payload-001,payload-000,true,true,cm_t below viability gate
+2026-07-08T20:00:10Z,1,24.9,45.1,0.029,0.118,0.921,0.847,1.00,100.0,40.0,500.0,120.0,payload-001,payload-000,true,true,CM_t below viability threshold (< 1.0)
 2026-07-08T20:00:20Z,2,24.9,45.0,0.033,0.121,0.915,0.839,1.00,100.0,46.0,500.0,170.0,payload-002,payload-001,true,true,feed-forward timing drift
 2026-07-08T20:00:30Z,3,25.0,44.9,0.035,0.124,0.909,0.833,1.00,100.0,40.0,500.0,160.0,payload-003,payload-002,false,true,reset sensor failure
 2026-07-08T20:00:40Z,4,25.0,44.8,0.030,0.119,0.922,0.850,1.00,100.0,40.0,500.0,160.0,payload-004,payload-003,true,false,handoff continuity dropped

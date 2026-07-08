@@ -25,7 +25,8 @@ def classify_cycle(record: MeasurementRecord) -> str:
     if record.cycle_index > 0 and (
         not record.handoff_checksum
         or not record.prior_handoff_checksum
-        or record.state_continuity_flag is not True
+        or record.state_continuity_flag is False
+        or record.state_continuity_flag is None
     ):
         return "handoff_degraded"
 

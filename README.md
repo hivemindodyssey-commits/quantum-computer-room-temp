@@ -23,7 +23,8 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
    python src/run_analysis.py path/to/your_measurements.csv
    ```
 
-The CLI now parses teleportation-cycle records, computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`, validates each cycle against the v0.2 timing/reset/handoff scaffold, and prints per-cycle stability classes.
+The CLI now parses teleportation-cycle records and computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`.
+It validates each cycle against the v0.2 timing/reset/handoff scaffold and prints per-cycle stability classes.
 
 ## Included Starter Assets
 - `docs/experiment-protocol.md`

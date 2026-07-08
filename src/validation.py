@@ -30,7 +30,7 @@ def validate_environmental_ranges(record: MeasurementRecord) -> list[str]:
     errors: list[str] = []
 
     if record.cycle_index < 0:
-        errors.append("cycle_index must be non-negative")
+        errors.append("cycle_index must be >= 0")
 
     if not (-20.0 <= record.ambient_temperature_c <= 80.0):
         errors.append("ambient_temperature_c out of expected range (-20 to 80)")
@@ -93,7 +93,10 @@ def validate_teleportation_semantics(record: MeasurementRecord) -> list[str]:
             )
         if not record.handoff_checksum:
             errors.append("handoff_checksum is required for nonzero cycle indices")
-        if record.state_continuity_flag is not True:
+        if (
+            record.state_continuity_flag is False
+            or record.state_continuity_flag is None
+        ):
             errors.append(
                 "state_continuity_flag must be true for nonzero cycle indices"
             )

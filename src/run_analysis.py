@@ -6,7 +6,11 @@ import argparse
 from collections import Counter
 from pathlib import Path
 
-from basic_analysis import compute_cycle_metrics, load_records, summarize_validation_failures
+from basic_analysis import (
+    compute_cycle_metrics,
+    load_records,
+    summarize_validation_failures,
+)
 from stability import classify_cycle, STABILITY_CLASSES
 
 
