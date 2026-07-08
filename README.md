@@ -23,6 +23,8 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
    python src/run_analysis.py path/to/your_measurements.csv
    ```
 
+The CLI now parses teleportation-cycle records, computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`, validates each cycle against the v0.2 timing/reset/handoff scaffold, and prints per-cycle stability classes.
+
 ## Included Starter Assets
 - `docs/experiment-protocol.md`
 - `docs/spec-v0.2.md`
@@ -30,8 +32,22 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
 - `data/samples/sample_measurements.csv`
 - `src/metrics_schema.py`
 - `src/basic_analysis.py`
+- `src/validation.py`
+- `src/stability.py`
 - `src/run_analysis.py`
 - `notebooks/README.md`
+
+## Teleportation-Aligned CSV Fields
+Each cycle row records the existing environmental/proxy metrics plus the v0.2 timing and state-transfer fields:
+
+- `cycle_index`
+- `t_pi_ns`, `t_bse_ns`, `t_ff_ns`, `t_uesa_ns`
+- `t2_star_ns`
+- `handoff_checksum`, `prior_handoff_checksum`
+- `reset_confirmed`
+- `state_continuity_flag`
+
+The sample CSV includes representative stable, non-viable, timing-marginal, reset-invalid, and handoff-degraded cycles so the analysis report exercises the new classification flow.
 
 ## Reproducibility Checklist
 - Keep hardware configuration fixed per run.
