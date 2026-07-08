@@ -36,6 +36,15 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
      --output data/output/run05_07_multi_phase_diagram.png \
      --title "Stability Phase Diagram — Runs 05–07"
    ```
+7. Plot against a sweep parameter instead of cycle index (falls back to `cycle_index` if the field is absent):
+   ```bash
+   python src/plot_phase_diagram.py \
+     --csvs data/run05.csv data/run06.csv \
+     --run-labels Run05 Run06 \
+     --x-field bias_khz \
+     --output data/output/run05_06_bias_phase_diagram.png \
+     --title "Stability Phase Diagram — Bias Sweep"
+   ```
 
 The CLI now parses teleportation-cycle records and computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`.
 It validates each cycle against the v0.2 timing/reset/handoff scaffold and prints per-cycle stability classes.

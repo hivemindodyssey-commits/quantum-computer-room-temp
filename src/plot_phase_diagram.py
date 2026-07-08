@@ -59,6 +59,14 @@ def build_parser() -> argparse.ArgumentParser:
         default="Stability Phase Diagram — Multi-Run",
         help="Plot title.",
     )
+    parser.add_argument(
+        "--x-field",
+        default="cycle_index",
+        help=(
+            "Record field to use as the X-axis (e.g. bias_khz, delta_t_ns). "
+            "Falls back to cycle_index if the field is absent or None."
+        ),
+    )
     return parser
 
 
@@ -92,10 +100,20 @@ def _collect_records_with_labels(
     return records_with_labels
 
 
+def _resolve_x_value(record: MeasurementRecord, x_field: str) -> float:
+    """Return the value of *x_field* from *record*, falling back to cycle_index."""
+    if x_field != "cycle_index":
+        value = getattr(record, x_field, None)
+        if value is not None:
+            return float(value)
+    return float(record.cycle_index)
+
+
 def plot_phase_diagram(
     records_with_labels: list[tuple[MeasurementRecord, str]],
     output_path: Path,
     title: str,
+    x_field: str = "cycle_index",
 ) -> None:
     if not records_with_labels:
         raise SystemExit("No records loaded from provided CSV inputs.")
@@ -103,12 +121,23 @@ def plot_phase_diagram(
     run_markers = run_marker_map(run_label for _, run_label in records_with_labels)
     colors = stability_color_map()
 
-    points_by_class_and_run: dict[str, dict[str, list[tuple[int, float]]]] = {}
+    # Determine the effective X label: use the requested field name unless we
+    # fell back to cycle_index for every record (field absent on the dataclass).
+    first_record = records_with_labels[0][0]
+    effective_x_field = (
+        x_field
+        if x_field == "cycle_index" or getattr(first_record, x_field, None) is not None
+        else "cycle_index"
+    )
+    x_label = effective_x_field.replace("_", " ")
+
+    points_by_class_and_run: dict[str, dict[str, list[tuple[float, float]]]] = {}
     for record, run_label in records_with_labels:
         classification = classify_cycle(record)
+        x_val = _resolve_x_value(record, x_field)
         points_by_class_and_run.setdefault(classification, {}).setdefault(
             run_label, []
-        ).append((record.cycle_index, record.cm_t))
+        ).append((x_val, record.cm_t))
 
     fig, ax = plt.subplots(figsize=(11, 7))
     for classification, grouped_by_run in points_by_class_and_run.items():
@@ -126,7 +155,7 @@ def plot_phase_diagram(
                 label=f"{run_label} — {classification}",
             )
 
-    ax.set_xlabel("Cycle index")
+    ax.set_xlabel(x_label)
     ax.set_ylabel("CM_t = T2* / (T_BSE + T_FF)")
     ax.set_title(title)
     ax.axhline(1.0, color="black", linestyle="--", linewidth=1.0, alpha=0.7)
@@ -155,6 +184,7 @@ def main() -> None:
         records_with_labels=records_with_labels,
         output_path=output_path,
         title=args.title,
+        x_field=args.x_field,
     )
     print(f"Wrote stability phase diagram to {output_path}")
 
