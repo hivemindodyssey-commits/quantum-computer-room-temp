@@ -168,6 +168,6 @@ if __name__ == "__main__":
         metrics = compute_cycle_metrics(records)
         print(f"Loaded {metrics['record_count']} teleportation cycles.")
         if metrics["cm_t"]:
-            print(f"Mean CM_t: {metrics['cm_t']['mean']:.6f}")
+            print(f"Mean cm_t: {metrics['cm_t']['mean']:.6f}")
     else:
         print("Sample file not found at data/samples/sample_measurements.csv")
