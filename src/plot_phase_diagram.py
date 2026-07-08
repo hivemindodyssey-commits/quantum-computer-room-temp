@@ -24,6 +24,7 @@ def stability_color_map() -> dict[str, str]:
 
 
 def run_marker_map(run_labels: Iterable[str]) -> dict[str, str]:
+    """Assign deterministic marker symbols per run label, cycling as needed."""
     markers = ["o", "s", "D", "^", "v", "P", "X", "*", "<", ">"]
     labels = sorted(set(run_labels))
     return {label: markers[index % len(markers)] for index, label in enumerate(labels)}
