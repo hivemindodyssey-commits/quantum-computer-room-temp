@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 from collections import Counter
 from math import ceil
 from pathlib import Path
@@ -15,6 +16,8 @@ from basic_analysis import load_records
 from metrics_schema import MeasurementRecord
 from plot_phase_diagram import _resolve_x_value, stability_color_map
 from stability import STABILITY_CLASSES, classify_cycle
+
+TEXT_COLOR_THRESHOLD = 0.45
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -132,10 +135,9 @@ def _effective_x_field(records: list[MeasurementRecord], requested_x_field: str)
 def _run_span_label(run_labels: list[str]) -> str:
     run_numbers: list[int] = []
     for run_label in run_labels:
-        if run_label.startswith("Run"):
-            suffix = run_label[3:]
-            if suffix.isdigit():
-                run_numbers.append(int(suffix))
+        match = re.search(r"(\d+)", run_label)
+        if match:
+            run_numbers.append(int(match.group(1)))
     if not run_numbers:
         return "Selected Runs"
     return f"Runs {min(run_numbers):02d}–{max(run_numbers):02d}"
@@ -285,7 +287,7 @@ def build_stability_mosaic(
                 f"{value:.2f}",
                 ha="center",
                 va="center",
-                color="white" if value > 0.45 else "black",
+                color="white" if value > TEXT_COLOR_THRESHOLD else "black",
                 fontsize=8,
             )
 
