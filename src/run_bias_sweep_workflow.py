@@ -135,6 +135,18 @@ def _effective_x_field(records: list[MeasurementRecord], requested_x_field: str)
     return "cycle_index"
 
 
+def _run_span_label(run_labels: list[str]) -> str:
+    run_numbers: list[int] = []
+    for run_label in run_labels:
+        if run_label.startswith("Run"):
+            suffix = run_label[3:]
+            if suffix.isdigit():
+                run_numbers.append(int(suffix))
+    if not run_numbers:
+        return "Selected Runs"
+    return f"Runs {min(run_numbers):02d}–{max(run_numbers):02d}"
+
+
 def write_ingestion_manifest(
     records_by_run: dict[str, list[MeasurementRecord]],
     run_paths: dict[str, Path],
@@ -175,6 +187,7 @@ def build_bias_sweep_atlas(
     records_by_run: dict[str, list[MeasurementRecord]],
     output_path: Path,
     x_field: str,
+    title: str,
 ) -> None:
     colors = stability_color_map()
     run_labels = sorted(records_by_run)
@@ -236,7 +249,7 @@ def build_bias_sweep_atlas(
         for stability_class in STABILITY_CLASSES
     ]
     fig.legend(handles=handles, loc="upper center", ncol=3, title="Stability class")
-    fig.suptitle("Bias-Sweep Stability Atlas (Runs 05–15)")
+    fig.suptitle(title)
     fig.tight_layout(rect=(0, 0, 1, 0.94))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=150)
@@ -246,6 +259,7 @@ def build_bias_sweep_atlas(
 def build_stability_mosaic(
     records_by_run: dict[str, list[MeasurementRecord]],
     output_path: Path,
+    title: str,
 ) -> None:
     run_labels = sorted(records_by_run)
     class_labels = list(STABILITY_CLASSES)
@@ -266,7 +280,7 @@ def build_stability_mosaic(
     ax.set_xticklabels([label.replace("_", "\n") for label in class_labels], fontsize=9)
     ax.set_yticks(range(len(run_labels)))
     ax.set_yticklabels(run_labels)
-    ax.set_title("Combined Stability Mosaic (Runs 05–15)")
+    ax.set_title(title)
 
     for row_index in range(len(run_labels)):
         for col_index in range(len(class_labels)):
@@ -300,6 +314,7 @@ def main() -> None:
     )
     run_paths = {label: path for label, path in discovered}
     records_by_run = load_run_records(discovered)
+    run_span = _run_span_label(sorted(records_by_run))
 
     manifest_path = output_dir / args.manifest
     atlas_path = output_dir / args.atlas_output
@@ -312,8 +327,13 @@ def main() -> None:
         records_by_run=records_by_run,
         output_path=atlas_path,
         x_field=args.x_field,
+        title=f"Bias-Sweep Stability Atlas ({run_span})",
     )
-    build_stability_mosaic(records_by_run=records_by_run, output_path=mosaic_path)
+    build_stability_mosaic(
+        records_by_run=records_by_run,
+        output_path=mosaic_path,
+        title=f"Combined Stability Mosaic ({run_span})",
+    )
 
     print("Run 05–15 workflow complete:")
     print(f"- Ingestion manifest: {manifest_path}")
