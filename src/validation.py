@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 from metrics_schema import MeasurementRecord
 
 
@@ -16,7 +18,7 @@ CYCLE_TARGET_NS = 641.0
 
 
 def _is_nan(value: float) -> bool:
-    return value != value
+    return math.isnan(value)
 
 
 def _within_target(value: float, target: float) -> bool:

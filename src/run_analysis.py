@@ -55,12 +55,10 @@ def main() -> None:
     _print_metric_block("t_cycle_ns", metrics["t_cycle_ns"])
     _print_metric_block("cm_t", metrics["cm_t"])
     print(
-        "- reset_confirmed:"
-        f" {metrics['reset_confirmed_count']}/{metrics['record_count']} cycles"
+        f"- reset_confirmed: {metrics['reset_confirmed_count']}/{metrics['record_count']} cycles"
     )
     print(
-        "- continuity_ok:"
-        f" {metrics['continuity_ok_count']}/{metrics['continuity_required_count']} transfer cycles"
+        f"- continuity_ok: {metrics['continuity_ok_count']}/{metrics['continuity_required_count']} transfer cycles"
     )
     print()
 
