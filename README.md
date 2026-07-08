@@ -22,6 +22,45 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
    ```bash
    python src/run_analysis.py path/to/your_measurements.csv
    ```
+5. Generate a stability phase diagram (single run):
+   ```bash
+   python src/plot_phase_diagram.py \
+     --csv data/samples/sample_measurements.csv \
+     --output data/output/single_run_phase_diagram.png
+   ```
+6. Generate a combined multi-run stability phase diagram:
+   ```bash
+   python src/plot_phase_diagram.py \
+     --csvs data/run05.csv data/run06.csv data/run07.csv \
+     --run-labels Run05 Run06 Run07 \
+     --output data/output/run05_07_multi_phase_diagram.png \
+     --title "Stability Phase Diagram — Runs 05–07"
+   ```
+7. Plot against a sweep parameter instead of cycle index (falls back to `cycle_index` if the field is absent):
+   ```bash
+   python src/plot_phase_diagram.py \
+     --csvs data/run05.csv data/run06.csv \
+     --run-labels Run05 Run06 \
+     --x-field bias_khz \
+     --output data/output/run05_06_bias_phase_diagram.png \
+     --title "Stability Phase Diagram — Bias Sweep"
+   ```
+8. Run the Run 05–15 ingestion + atlas + mosaic workflow:
+   ```bash
+   python src/run_bias_sweep_workflow.py \
+     --input-dir data \
+     --run-start 5 \
+     --run-end 15 \
+     --x-field bias_khz \
+     --output-dir data/output
+   ```
+   This writes:
+   - `run05_15_ingestion_manifest.csv`
+   - `run05_15_bias_sweep_atlas.png`
+   - `run05_15_stability_mosaic.png`
+
+The CLI now parses teleportation-cycle records and computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`.
+It validates each cycle against the v0.2 timing/reset/handoff scaffold and prints per-cycle stability classes.
 
 ## Included Starter Assets
 - `docs/experiment-protocol.md`
@@ -30,8 +69,23 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
 - `data/samples/sample_measurements.csv`
 - `src/metrics_schema.py`
 - `src/basic_analysis.py`
+- `src/validation.py`
+- `src/stability.py`
 - `src/run_analysis.py`
+- `src/run_bias_sweep_workflow.py`
 - `notebooks/README.md`
+
+## Teleportation-Aligned CSV Fields
+Each cycle row records the existing environmental/proxy metrics plus the v0.2 timing and state-transfer fields:
+
+- `cycle_index`
+- `t_pi_ns`, `t_bse_ns`, `t_ff_ns`, `t_uesa_ns`
+- `t2_star_ns`
+- `handoff_checksum`, `prior_handoff_checksum`
+- `reset_confirmed`
+- `state_continuity_flag`
+
+The sample CSV includes representative stable, non-viable, timing-marginal, reset-invalid, and handoff-degraded cycles so the analysis report exercises the new classification flow.
 
 ## Reproducibility Checklist
 - Keep hardware configuration fixed per run.
