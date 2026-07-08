@@ -331,7 +331,7 @@ def main() -> None:
         title=f"Combined Stability Mosaic ({run_span})",
     )
 
-    print("Run 05–15 workflow complete:")
+    print(f"{run_span} workflow complete:")
     print(f"- Ingestion manifest: {manifest_path}")
     print(f"- Bias-sweep atlas: {atlas_path}")
     print(f"- Stability mosaic: {mosaic_path}")
