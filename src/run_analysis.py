@@ -44,7 +44,8 @@ def main() -> None:
     records = load_records(csv_path)
     metrics = compute_cycle_metrics(records)
     failures = summarize_validation_failures(records)
-    class_counts = Counter(classify_cycle(record) for record in records)
+    classified_records = [(record, classify_cycle(record)) for record in records]
+    class_counts = Counter(classification for _, classification in classified_records)
 
     print(f"Teleportation-aligned analysis for: {csv_path}")
     print(f"Loaded {metrics['record_count']} cycle records.")
@@ -68,9 +69,9 @@ def main() -> None:
     print()
 
     print("Per-cycle status:")
-    for record in records:
+    for record, classification in classified_records:
         print(
-            f"- cycle {record.cycle_index}: {classify_cycle(record)}"
+            f"- cycle {record.cycle_index}: {classification}"
             f" (CM_t={record.cm_t:.3f}, T_cycle={record.t_cycle_ns:.3f} ns)"
         )
 

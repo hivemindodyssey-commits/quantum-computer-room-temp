@@ -36,7 +36,7 @@ def parse_bool(value: str) -> bool:
     raise ValueError(f"Invalid boolean value: {value!r}")
 
 
-def parse_optional_bool(value: str) -> bool | None:
+def _parse_optional_bool(value: str) -> bool | None:
     if not value.strip():
         return None
     return parse_bool(value)
@@ -71,7 +71,7 @@ def parse_record(row: dict[str, str]) -> MeasurementRecord:
         handoff_checksum=_parse_optional_text(row.get("handoff_checksum")),
         prior_handoff_checksum=_parse_optional_text(row.get("prior_handoff_checksum")),
         reset_confirmed=parse_bool(row["reset_confirmed"]),
-        state_continuity_flag=parse_optional_bool(
+        state_continuity_flag=_parse_optional_bool(
             row.get("state_continuity_flag", "")
         ),
         anomaly_note=_parse_optional_text(row.get("anomaly_note")),
