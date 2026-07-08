@@ -45,6 +45,19 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
      --output data/output/run05_06_bias_phase_diagram.png \
      --title "Stability Phase Diagram — Bias Sweep"
    ```
+8. Run the Run 05–15 ingestion + atlas + mosaic workflow:
+   ```bash
+   python src/run_bias_sweep_workflow.py \
+     --input-dir data \
+     --run-start 5 \
+     --run-end 15 \
+     --x-field bias_khz \
+     --output-dir data/output
+   ```
+   This writes:
+   - `run05_15_ingestion_manifest.csv`
+   - `run05_15_bias_sweep_atlas.png`
+   - `run05_15_stability_mosaic.png`
 
 The CLI now parses teleportation-cycle records and computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`.
 It validates each cycle against the v0.2 timing/reset/handoff scaffold and prints per-cycle stability classes.
@@ -59,6 +72,7 @@ It validates each cycle against the v0.2 timing/reset/handoff scaffold and print
 - `src/validation.py`
 - `src/stability.py`
 - `src/run_analysis.py`
+- `src/run_bias_sweep_workflow.py`
 - `notebooks/README.md`
 
 ## Teleportation-Aligned CSV Fields
