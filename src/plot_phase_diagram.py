@@ -129,7 +129,7 @@ def plot_phase_diagram(
         if x_field == "cycle_index" or getattr(first_record, x_field, None) is not None
         else "cycle_index"
     )
-    x_label = effective_x_field.replace("_", " ")
+    x_label = effective_x_field.replace("_", " ").title()
 
     points_by_class_and_run: dict[str, dict[str, list[tuple[float, float]]]] = {}
     for record, run_label in records_with_labels:
