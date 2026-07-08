@@ -126,9 +126,8 @@ def load_run_records(
 def _effective_x_field(records: list[MeasurementRecord], requested_x_field: str) -> str:
     if requested_x_field == "cycle_index":
         return requested_x_field
-    for record in records:
-        if getattr(record, requested_x_field, None) is not None:
-            return requested_x_field
+    if records and getattr(records[0], requested_x_field, None) is not None:
+        return requested_x_field
     return "cycle_index"
 
 
