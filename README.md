@@ -22,11 +22,19 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
    ```bash
    python src/run_analysis.py path/to/your_measurements.csv
    ```
-5. Generate a stability phase diagram:
+5. Generate a stability phase diagram (single run):
    ```bash
    python src/plot_phase_diagram.py \
      --csv data/samples/sample_measurements.csv \
      --output data/output/run05_15_phase_diagram.png
+   ```
+6. Generate a combined multi-run stability phase diagram:
+   ```bash
+   python src/plot_phase_diagram.py \
+     --csvs data/run05.csv data/run06.csv data/run07.csv \
+     --run-labels Run05 Run06 Run07 \
+     --output data/output/run05_15_multi_phase_diagram.png \
+     --title "Stability Phase Diagram — Runs 05–15"
    ```
 
 The CLI now parses teleportation-cycle records and computes derived cycle metrics such as `t_active_ns`, `t_cycle_ns`, and `CM_t`.
