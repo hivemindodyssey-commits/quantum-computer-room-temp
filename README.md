@@ -7,6 +7,7 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
 - [Data Ingest Contract](#data-ingest-contract-run05run15)
 - [Workflow Execution](#workflow-execution)
 - [Outputs](#outputs)
+- [Data Provenance](#data-provenance)
 - [Reproducibility Checklist](#reproducibility-checklist)
 - [Disclaimer](#disclaimer)
 
@@ -71,6 +72,14 @@ This produces:
 
 These artifacts form the basis for coherence-window analysis, collapse-boundary
 mapping, drift-corridor identification, and run-to-run stability interpretation.
+
+## Data Provenance
+The Run05–Run15 dataset provenance is tracked with both human-readable and machine-readable manifests:
+
+- Text manifest: **[`data/manifest_run05_15.txt`](./data/manifest_run05_15.txt)**
+- JSON manifest: **[`data/manifest_run05_15.json`](./data/manifest_run05_15.json)**
+
+Use these manifests to verify run presence, schema versioning, validation status, and derived metric definitions before executing multi-run analysis.
 
 ## Included Starter Assets
 - `docs/experiment-protocol.md`
