@@ -1,11 +1,12 @@
 # quantum-computer-room-temp
 
 Room-temperature quantum-computing research scaffold focused on spin-exciton proxy metrics, repeatable protocol design, and lightweight analysis utilities.
+
 ## Table of Contents
-- [Repository Layout](#repository-layout)
 - [Quickstart](#quickstart)
-- [Data Ingest Contract (Run05–Run15)](#data-ingest-contract-run05run15)
-- [Included Starter Assets](#included-starter-assets)
+- [Data Ingest Contract](#data-ingest-contract-run05run15)
+- [Workflow Execution](#workflow-execution)
+- [Outputs](#outputs)
 - [Reproducibility Checklist](#reproducibility-checklist)
 - [Disclaimer](#disclaimer)
 
@@ -49,6 +50,7 @@ Before running the multi-run workflow, ensure that:
 - Filenames match CI expectations (case-sensitive)
 - Sweep parameter (`bias_khz` or alternative `--x-field`) is included
 
+## Workflow Execution
 Once the data ingest contract is satisfied, execute:
 
 ```bash
@@ -60,6 +62,7 @@ python src/run_bias_sweep_workflow.py \
   --output-dir data/output
 ```
 
+## Outputs
 This produces:
 
 - `run05_15_ingestion_manifest.csv`
