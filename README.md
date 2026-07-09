@@ -10,6 +10,7 @@ Room-temperature quantum-computing research scaffold focused on spin-exciton pro
 - [Workflow Execution](#workflow-execution)
 - [Outputs](#outputs)
 - [Data Provenance](#data-provenance)
+- [Developer Notes](#developer-notes)
 - [Reproducibility Checklist](#reproducibility-checklist)
 - [Disclaimer](#disclaimer)
 
@@ -82,6 +83,30 @@ The Run05–Run15 dataset provenance is tracked with both human-readable and mac
 - JSON manifest: **[`data/manifest_run05_15.json`](./data/manifest_run05_15.json)**
 
 Use these manifests to verify run presence, schema versioning, validation status, and derived metric definitions before executing multi-run analysis.
+
+## Developer Notes
+### Workflow trigger logic
+- Dataset validation CI is designed to trigger on dataset and validation script changes.
+- Expected trigger paths include `data/run*.csv`, `data/manifest_run05_15.txt`, `data/manifest_run05_15.json`, and `validate-runs.ps1`.
+
+### Data and manifest assumptions
+- The multi-run pipeline assumes contiguous Run05–Run15 CSV availability in `data/`.
+- Filenames are case-sensitive and must match contract expectations exactly.
+- Provenance is dual-layered: text manifest for human inspection and JSON manifest for machine validation and CI workflows.
+
+### Validation contract
+- `validate-runs.ps1` is the gatekeeper for schema and field-level integrity.
+- Validation is expected to fail fast on missing files, required-column mismatches, or invalid numeric/boolean field encodings.
+- CI status should be treated as authoritative for merge readiness of dataset updates.
+
+### Timing and sequence architecture
+- Canonical execution order:
+  1. **Ingest readiness check** (file presence and naming)
+  2. **Schema validation** (`validate-runs.ps1`)
+  3. **Bias sweep execution** (`src/run_bias_sweep_workflow.py`)
+  4. **Artifact generation** (ingestion manifest, atlas, stability mosaic)
+  5. **Interpretation and reporting** (physics summary and stability review)
+- Any failed precondition in steps 1–2 should block downstream analysis to preserve reproducibility.
 
 ## Included Starter Assets
 - `docs/experiment-protocol.md`
