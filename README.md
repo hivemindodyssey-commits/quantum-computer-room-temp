@@ -1,5 +1,7 @@
 # quantum-computer-room-temp
 
+![Dataset Validation](https://github.com/hivemindodyssey-commits/quantum-computer-room-temp/actions/workflows/validate-dataset.yml/badge.svg)
+
 Room-temperature quantum-computing research scaffold focused on spin-exciton proxy metrics, repeatable protocol design, and lightweight analysis utilities.
 
 ## Table of Contents
