@@ -1,0 +1,60 @@
+{
+  "dataset_summary": {
+    "runs_expected": ["05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"],
+    "runs_present": [
+      "run05.csv",
+      "run06.csv",
+      "run07.csv",
+      "run08.csv",
+      "run09.csv",
+      "run10.csv",
+      "run11.csv",
+      "run12.csv",
+      "run13.csv",
+      "run14.csv",
+      "run15.csv"
+    ]
+  },
+
+  "validation": {
+    "validator_script": "validate-runs.ps1",
+    "validator_status": "GREEN LIGHT",
+    "notes": "All required columns present, numeric fields valid, boolean fields valid."
+  },
+
+  "schema": {
+    "version": "v0.2",
+    "required_columns": [
+      "timestamp",
+      "cycle_index",
+      "ambient_temperature_c",
+      "relative_humidity_pct",
+      "vibration_index",
+      "em_noise_estimate",
+      "coherence_proxy",
+      "spin_exciton_proxy",
+      "t_pi_ns",
+      "t_bse_ns",
+      "t_ff_ns",
+      "t_uesa_ns",
+      "t2_star_ns",
+      "handoff_checksum",
+      "prior_handoff_checksum",
+      "reset_confirmed",
+      "state_continuity_flag",
+      "anomaly_note",
+      "bias_khz"
+    ],
+    "derived_metrics": {
+      "t_active_ns": "t_bse_ns + t_ff_ns",
+      "t_cycle_ns": "t_pi_ns + t_bse_ns + t_ff_ns + t_uesa_ns",
+      "CM_t": "t2_star_ns / t_active_ns"
+    }
+  },
+
+  "provenance": {
+    "filenames_case_sensitive": true,
+    "validated_prior_to_commit": true,
+    "ready_for_multi_run_workflow": true
+  }
+}
