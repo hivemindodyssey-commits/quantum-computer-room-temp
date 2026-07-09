@@ -1,6 +1,13 @@
 # quantum-computer-room-temp
 
 Room-temperature quantum-computing research scaffold focused on spin-exciton proxy metrics, repeatable protocol design, and lightweight analysis utilities.
+## Table of Contents
+- [Repository Layout](#repository-layout)
+- [Quickstart](#quickstart)
+- [Data Ingest Contract (Run05–Run15)](#data-ingest-contract-run05run15)
+- [Included Starter Assets](#included-starter-assets)
+- [Reproducibility Checklist](#reproducibility-checklist)
+- [Disclaimer](#disclaimer)
 
 ## Repository Layout
 - `docs/` — protocol and specification docs
