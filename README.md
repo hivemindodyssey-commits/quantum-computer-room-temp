@@ -6,7 +6,23 @@
 ![Repo Size](https://img.shields.io/github/repo-size/hivemindodyssey-commits/quantum-computer-room-temp)
 ![Last Commit](https://img.shields.io/github/last-commit/hivemindodyssey-commits/quantum-computer-room-temp)
 
+<!-- Optional GitHub Pages-friendly status badges -->
+![Docs](https://img.shields.io/badge/docs-v2%20suite-informational)
+![Release](https://img.shields.io/badge/release-v2.0.0-blueviolet)
+
 A research scaffold for deterministic temporal analysis of exciton–polariton racetrack behavior in a vdW-hosted stack, with explicit contracts for schema, summary, and template rendering.
+
+## Documentation
+
+- **v2 Documentation Hub:** [`docs/v2_index.md`](docs/v2_index.md)
+- Input contract: [`docs/schema_v2.md`](docs/schema_v2.md)
+- Output contract: [`docs/summary_contract_v2.md`](docs/summary_contract_v2.md)
+- Template contract: [`docs/template_interface_v2.md`](docs/template_interface_v2.md)
+- Renderer validation: [`docs/renderer_validation_v2.md`](docs/renderer_validation_v2.md)
+- Theory context: [`docs/theory/time_crystal_architecture.md`](docs/theory/time_crystal_architecture.md)
+- Experiment protocol: [`docs/experiments/subharmonic_validation_protocol.md`](docs/experiments/subharmonic_validation_protocol.md)
+- Maintainer guide: [`docs/MAINTAINER_GUIDE.md`](docs/MAINTAINER_GUIDE.md)
+- Security policy: [`SECURITY.md`](SECURITY.md)
 
 ## What this repository provides
 
@@ -40,6 +56,18 @@ Heuristic summaries:
 - `src/` — ingestion + summary logic
 - `data/` — run CSV inputs
 - `docs/` — contracts, interfaces, validation specs
+
+## Live CI Map
+
+```text
+CSV Input
+  -> Schema Validation (docs/schema_v2.md)
+  -> Summary Extraction (src/auto_fill_physics_summary.py)
+  -> Summary Contract Check (docs/summary_contract_v2.md)
+  -> Template Validation (docs/template_interface_v2.md)
+  -> Renderer Validation + Drift Gates (docs/renderer_validation_v2.md)
+  -> Published Artifacts
+```
 
 ## Documentation split
 
