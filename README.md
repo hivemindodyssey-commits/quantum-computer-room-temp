@@ -98,3 +98,7 @@ Expected output: per-run plateau, collapse boundary, drift corridor summaries.
 2. Produce summary payload per `docs/summary_contract_v2.md`
 3. Render templates via `docs/template_interface_v2.md`
 4. Enforce CI checks from `docs/renderer_validation_v2.md`
+
+## Authors
+
+- Roger Jerel Kvande
